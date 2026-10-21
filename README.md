@@ -1,23 +1,25 @@
-# ANB Official Website — Mobile-friendly starter
+# ANB Official Website — v2 patch
 
-## Files (all in repository root)
-- `index.html`
-- `styles.css`
-- `script.js`
-- `anb-mark.svg`
+This patch fixes the broken ANB logo/emblem by adding the missing `assets/anb-mark.svg` file that the HTML already references. It also improves the mobile navigation panel contrast and menu accessibility/closing behavior.
 
-## Publish on GitHub Pages using an Android phone
-1. Create a NEW public repository named `anb-official-website` at https://github.com/new. Do not change any existing repository.
-2. Open the new repository and use **Add file → Upload files** to upload these four files from this extracted folder. Keep all four in the repository root (same level as each other).
-3. Commit the files to the `main` branch.
-4. Go to **Settings → Pages**.
-5. Under **Build and deployment**, choose **Deploy from a branch**; choose branch `main` and folder `/(root)`, then press **Save**.
-6. Wait a few minutes, then check the Pages URL shown in Settings → Pages.
-7. If the repository owner is `anbsolution`, the expected URL is `https://anbsolution.github.io/anb-official-website/`. Confirm it in Settings → Pages.
+## Mobile Termux update
+1. Download `ANB-Official-Website-v2-Patch.zip` to your Android Downloads folder.
+2. In Termux, run:
 
-Edit on mobile without nano: open a file in GitHub, tap the pencil icon, edit, then commit.
+```sh
+cd ~/ANB-Official-Website
+git status
+unzip -o /storage/emulated/0/Download/ANB-Official-Website-v2-Patch.zip -d .
+git add index.html styles.css script.js README.md assets/anb-mark.svg
+git commit -m "Fix logo assets and improve mobile navigation"
+git push origin main
+```
 
-Important:
-- Project cards link only to known existing public project/profile URLs; entries without a confirmed URL are labelled as in development.
-- No APK is represented as downloadable until a real release link is added.
-- GitHub Pages hosts static sites; a contact form needs an external form service or a mail link if you want submissions.
+If the ZIP downloaded to a different folder, update the ZIP path accordingly. Do not run `git push --force`.
+
+## Verify after push
+- Open the repository's **Actions** tab only if a workflow is configured; this site currently uses GitHub Pages branch publishing.
+- In Settings → Pages, confirm `main` and `/(root)` remain selected.
+- Open https://anbsolution.github.io/anb-official-website/ and refresh. If the old version remains, wait a few minutes and refresh again.
+
+This patch does not add APK download links or claim unverified releases exist.
