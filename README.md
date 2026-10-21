@@ -1,25 +1,27 @@
-# ANB Official Website — v2 patch
+# ANB Official Website — v3 Interactive Pro patch
 
-This patch fixes the broken ANB logo/emblem by adding the missing `assets/anb-mark.svg` file that the HTML already references. It also improves the mobile navigation panel contrast and menu accessibility/closing behavior.
+## What's improved
+- Keeps the existing Cyber Pro visual design and the current repository structure.
+- Adds canonical URL, search indexing directives, Open Graph and Twitter metadata, and Organization structured data.
+- Adds a keyboard-accessible “Skip to content” link and visible keyboard focus styles.
+- Adds an “Explore repositories” link in the Projects heading.
+- Adds a scroll-aware “Back to top” button that respects reduced-motion preferences.
+- Preserves verified project links and does not invent APK download links.
 
-## Mobile Termux update
-1. Download `ANB-Official-Website-v2-Patch.zip` to your Android Downloads folder.
-2. In Termux, run:
+## Update from Android using Termux
+1. Download `ANB-Official-Website-v3-Patch.zip` to the Android Downloads folder.
+2. Run the following commands. They do not use nano and do not force-push.
 
 ```sh
 cd ~/ANB-Official-Website
 git status
-unzip -o /storage/emulated/0/Download/ANB-Official-Website-v2-Patch.zip -d .
+unzip -o /storage/emulated/0/Download/ANB-Official-Website-v3-Patch.zip -d .
 git add index.html styles.css script.js README.md assets/anb-mark.svg
-git commit -m "Fix logo assets and improve mobile navigation"
+git commit -m "Add SEO metadata and interactive accessibility improvements"
 git push origin main
 ```
 
-If the ZIP downloaded to a different folder, update the ZIP path accordingly. Do not run `git push --force`.
+If `git status` shows unrelated changes, stop and inspect them before committing. If the ZIP downloaded elsewhere, update its path. If Git says “nothing to commit,” do not repeat the commit; check the live page and repository history instead.
 
-## Verify after push
-- Open the repository's **Actions** tab only if a workflow is configured; this site currently uses GitHub Pages branch publishing.
-- In Settings → Pages, confirm `main` and `/(root)` remain selected.
-- Open https://anbsolution.github.io/anb-official-website/ and refresh. If the old version remains, wait a few minutes and refresh again.
-
-This patch does not add APK download links or claim unverified releases exist.
+## Verify
+Open https://anbsolution.github.io/anb-official-website/ and check the Projects links, mobile navigation, back-to-top button, logo, and page sections. GitHub Pages branch publishing can take a few minutes after a push. This patch has not been pushed automatically.
