@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F7F9FE">
+  <meta name="description" content="Full project information, overview, features and official links from ANB.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="assets/anb-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>Project Details — ANB</title>
+  <script defer src="project-details.js"></script>
+</head>
+<body class="detail-page">
+  <a class="skip-link" href="#detail-main">Skip to project details</a>
+  <header class="site-header detail-header">
+    <a class="brand" href="./#home" aria-label="ANB home"><img src="assets/anb-mark.svg" alt=""><span>ANB<span class="brand-dot">.</span></span></a>
+    <nav class="nav detail-nav" aria-label="Project navigation">
+      <a href="./#projects">All projects</a>
+      <a href="./#about">About ANB</a>
+      <a class="nav-cta" href="https://github.com/anbsolution" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+    </nav>
+  </header>
+  <main id="detail-main" class="project-detail-main">
+    <div class="detail-top-actions">
+      <a class="button button-ghost" href="./#projects">← Back to projects</a>
+      <a class="button button-primary" href="./#home">⌂ Home</a>
+    </div>
+    <section class="detail-hero" aria-labelledby="detail-title">
+      <div class="detail-hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> ANB / PROJECT PROFILE</div>
+        <p id="detail-type" class="detail-type">PROJECT</p>
+        <h1 id="detail-title">Loading project…</h1>
+        <p id="detail-summary" class="detail-summary">Project information is loading.</p>
+        <div class="detail-meta"><span id="detail-status" class="release-badge">Project status</span><span id="detail-platform" class="detail-platform">Platform information</span></div>
+        <div id="detail-actions" class="detail-actions"></div>
+      </div>
+      <div class="detail-art-wrap" aria-hidden="true"><div id="detail-symbol" class="detail-symbol">ANB</div><div class="detail-orbit detail-orbit-one"></div><div class="detail-orbit detail-orbit-two"></div><span class="detail-art-caption">IDEA → DESIGN → BUILD</span></div>
+    </section>
+    <section class="detail-content-grid">
+      <article class="detail-info-panel">
+        <div class="eyebrow">01 / ABOUT THIS PROJECT</div>
+        <h2>Overview</h2>
+        <p id="detail-about"></p>
+      </article>
+      <article class="detail-info-panel">
+        <div class="eyebrow">02 / WHAT IT AIMS TO DO</div>
+        <h2>Planned features</h2>
+        <ul id="detail-features" class="detail-feature-list"></ul>
+      </article>
+      <article class="detail-info-panel">
+        <div class="eyebrow">03 / DEVELOPMENT</div>
+        <h2>Project status</h2>
+        <p id="detail-development"></p>
+      </article>
+      <article class="detail-info-panel">
+        <div class="eyebrow">04 / PROJECT INFORMATION</div>
+        <h2>Details at a glance</h2>
+        <dl class="detail-facts">
+          <div><dt>Category</dt><dd id="detail-category"></dd></div>
+          <div><dt>Platform</dt><dd id="detail-fact-platform"></dd></div>
+          <div><dt>Availability</dt><dd id="detail-availability"></dd></div>
+        </dl>
+      </article>
+    </section>
+    <section class="detail-bottom-cta">
+      <div><div class="eyebrow">KEEP EXPLORING</div><h2>More from ANB.</h2><p>Return to the main website to explore other projects and updates.</p></div>
+      <div class="detail-bottom-actions"><a class="button button-primary" href="./#projects">Browse all projects ↗</a><a class="button button-ghost" href="./#home">Go to home</a></div>
+    </section>
+  </main>
+  <footer class="site-footer"><a class="brand" href="./#home"><img src="assets/anb-mark.svg" alt=""><span>ANB<span class="brand-dot">.</span></span></a><p>Independent ideas. Practical software. Continuous progress.</p><div class="footer-links"><a href="./#projects">Projects</a><a href="./#about">About</a><a href="https://github.com/anbsolution" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div><small>© <span id="year"></span> ANB. Built for the web.</small></footer>
+  <button class="back-to-top" type="button" aria-label="Back to top" title="Back to top">↑</button>
+</body>
+</html>

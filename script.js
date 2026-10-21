@@ -115,9 +115,12 @@
         }
       });
       option.addEventListener('click', () => {
+        const slug = card.getAttribute('data-project');
+        if (slug) {
+          window.location.href = `project-details.html?project=${encodeURIComponent(slug)}`;
+          return;
+        }
         searchInput.value = getCardTitle(card); applyProjectSearch(); hideSuggestions();
-        document.getElementById('projects')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-        searchInput.focus();
       });
       suggestions.appendChild(option);
     });
@@ -173,52 +176,38 @@
       }
     });
 
-    // Accessible project detail dialog, populated from each existing project card.
-    const dialog = document.createElement('dialog');
-    dialog.className = 'project-dialog';
-    dialog.setAttribute('aria-labelledby', 'project-dialog-title');
-    dialog.innerHTML = `<div class="dialog-inner"><div class="dialog-top"><div><div class="dialog-kicker">ANB / PROJECT DETAILS</div><h3 class="dialog-title" id="project-dialog-title"></h3></div><button class="dialog-close" type="button" aria-label="Close project details">×</button></div><div class="dialog-status"></div><p class="dialog-description"></p><div class="dialog-actions"></div><p class="dialog-note">Availability is shown as listed on this website. Only use release links when a verified release is available.</p></div>`;
-    document.body.appendChild(dialog);
-    const closeDialog = dialog.querySelector('.dialog-close');
-    const close = () => { if (dialog.open) dialog.close(); };
-    closeDialog.addEventListener('click', close);
-    dialog.addEventListener('click', (event) => { if (event.target === dialog) close(); });
-    dialog.addEventListener('close', () => { const prior = document.activeElement; if (prior && prior.classList && prior.classList.contains('details-button')) prior.focus(); });
+    // v12: open a dedicated detail page when a project card is selected.
+    const openProject = (card) => {
+      const slug = card.getAttribute('data-project');
+      if (slug) window.location.href = `project-details.html?project=${encodeURIComponent(slug)}`;
+    };
     projectCards.forEach((card) => {
-      const content = card.querySelector('.project-content');
-      if (!content) return;
-      const title = content.querySelector('h3');
-      const description = content.querySelector('p');
-      const status = card.querySelector('.project-state');
-      const link = content.querySelector('a[href]');
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'details-button';
-      button.textContent = 'Project details +';
-      button.setAttribute('aria-haspopup', 'dialog');
-      content.appendChild(button);
-      button.addEventListener('click', () => {
-        dialog.querySelector('#project-dialog-title').textContent = title ? title.textContent.trim() : 'ANB project';
-        dialog.querySelector('.dialog-description').textContent = description ? description.textContent.trim() : 'Project information will be updated as development progresses.';
-        dialog.querySelector('.dialog-status').textContent = status ? status.textContent.trim() : (content.querySelector('.muted-link') ? content.querySelector('.muted-link').textContent.trim() : 'Project information');
-        const actions = dialog.querySelector('.dialog-actions');
-        actions.replaceChildren();
-        if (link) {
-          const action = document.createElement('a');
-          action.className = 'button button-primary';
-          action.href = link.href;
-          action.textContent = link.textContent.trim().replace(/\s*[↗↘+]\s*$/, '') || 'Open project';
-          if (link.target === '_blank') { action.target = '_blank'; action.rel = 'noopener noreferrer'; }
-          actions.appendChild(action);
-        } else {
-          const note = document.createElement('span');
-          note.className = 'dialog-note';
-          note.textContent = 'A public project or release link has not been published yet.';
-          actions.appendChild(note);
-        }
-        if (typeof dialog.showModal === 'function') dialog.showModal();
-        else window.alert(`${title ? title.textContent : 'Project'}\n\n${description ? description.textContent : ''}`);
+      const slug = card.getAttribute('data-project');
+      if (!slug) return;
+      card.classList.add('project-card-clickable');
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'link');
+      card.setAttribute('aria-label', `View full details for ${getCardTitle(card)}`);
+      card.addEventListener('click', (event) => {
+        if (event.target.closest('button, input, select, textarea')) return;
+        if (event.target.closest('a')) event.preventDefault();
+        openProject(card);
       });
+      card.addEventListener('keydown', (event) => {
+        if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('button, input, select, textarea')) {
+          event.preventDefault();
+          openProject(card);
+        }
+      });
+      const content = card.querySelector('.project-content');
+      if (content && !content.querySelector('.details-button')) {
+        const detailLink = document.createElement('a');
+        detailLink.className = 'details-button';
+        detailLink.href = `project-details.html?project=${encodeURIComponent(slug)}`;
+        detailLink.textContent = 'View full details →';
+        detailLink.addEventListener('click', (event) => event.stopPropagation());
+        content.appendChild(detailLink);
+      }
     });
     applyProjectSearch();
   }
