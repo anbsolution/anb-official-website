@@ -62,4 +62,93 @@
   } else {
     items.forEach((item) => item.classList.add('is-visible'));
   }
+
+  // v4 project search and category filters.
+  const projectGrid = document.querySelector('.project-grid');
+  const searchInput = document.getElementById('project-search');
+  const filterButtons = Array.from(document.querySelectorAll('[data-filter]'));
+  const projectCards = Array.from(document.querySelectorAll('.project-card'));
+  const resultsLabel = document.getElementById('project-results');
+  let activeFilter = 'all';
+  const normalize = (value) => (value || '').toLocaleLowerCase().trim();
+  const applyProjectFilters = () => {
+    const query = normalize(searchInput ? searchInput.value : '');
+    let shown = 0;
+    projectCards.forEach((card) => {
+      const matchesCategory = activeFilter === 'all' || card.dataset.category === activeFilter;
+      const matchesQuery = !query || normalize(card.textContent).includes(query);
+      const visible = matchesCategory && matchesQuery;
+      card.hidden = !visible;
+      if (visible) shown += 1;
+    });
+    if (resultsLabel) {
+      resultsLabel.textContent = shown === projectCards.length && !query && activeFilter === 'all'
+        ? `Showing all ${shown} projects.`
+        : `Showing ${shown} of ${projectCards.length} projects.`;
+    }
+  };
+  if (projectGrid && projectCards.length) {
+    if (searchInput) searchInput.addEventListener('input', applyProjectFilters);
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        activeFilter = button.dataset.filter || 'all';
+        filterButtons.forEach((item) => {
+          const selected = item === button;
+          item.classList.toggle('is-active', selected);
+          item.setAttribute('aria-pressed', String(selected));
+        });
+        applyProjectFilters();
+      });
+    });
+
+    // Accessible project detail dialog, populated from each existing project card.
+    const dialog = document.createElement('dialog');
+    dialog.className = 'project-dialog';
+    dialog.setAttribute('aria-labelledby', 'project-dialog-title');
+    dialog.innerHTML = `<div class="dialog-inner"><div class="dialog-top"><div><div class="dialog-kicker">ANB / PROJECT DETAILS</div><h3 class="dialog-title" id="project-dialog-title"></h3></div><button class="dialog-close" type="button" aria-label="Close project details">×</button></div><div class="dialog-status"></div><p class="dialog-description"></p><div class="dialog-actions"></div><p class="dialog-note">Availability is shown as listed on this website. Only use release links when a verified release is available.</p></div>`;
+    document.body.appendChild(dialog);
+    const closeDialog = dialog.querySelector('.dialog-close');
+    const close = () => { if (dialog.open) dialog.close(); };
+    closeDialog.addEventListener('click', close);
+    dialog.addEventListener('click', (event) => { if (event.target === dialog) close(); });
+    dialog.addEventListener('close', () => { const prior = document.activeElement; if (prior && prior.classList && prior.classList.contains('details-button')) prior.focus(); });
+    projectCards.forEach((card) => {
+      const content = card.querySelector('.project-content');
+      if (!content) return;
+      const title = content.querySelector('h3');
+      const description = content.querySelector('p');
+      const status = card.querySelector('.project-state');
+      const link = content.querySelector('a[href]');
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'details-button';
+      button.textContent = 'Project details +';
+      button.setAttribute('aria-haspopup', 'dialog');
+      content.appendChild(button);
+      button.addEventListener('click', () => {
+        dialog.querySelector('#project-dialog-title').textContent = title ? title.textContent.trim() : 'ANB project';
+        dialog.querySelector('.dialog-description').textContent = description ? description.textContent.trim() : 'Project information will be updated as development progresses.';
+        dialog.querySelector('.dialog-status').textContent = status ? status.textContent.trim() : (content.querySelector('.muted-link') ? content.querySelector('.muted-link').textContent.trim() : 'Project information');
+        const actions = dialog.querySelector('.dialog-actions');
+        actions.replaceChildren();
+        if (link) {
+          const action = document.createElement('a');
+          action.className = 'button button-primary';
+          action.href = link.href;
+          action.textContent = link.textContent.trim().replace(/\s*[↗↘+]\s*$/, '') || 'Open project';
+          if (link.target === '_blank') { action.target = '_blank'; action.rel = 'noopener noreferrer'; }
+          actions.appendChild(action);
+        } else {
+          const note = document.createElement('span');
+          note.className = 'dialog-note';
+          note.textContent = 'A public project or release link has not been published yet.';
+          actions.appendChild(note);
+        }
+        if (typeof dialog.showModal === 'function') dialog.showModal();
+        else window.alert(`${title ? title.textContent : 'Project'}\n\n${description ? description.textContent : ''}`);
+      });
+    });
+    applyProjectFilters();
+  }
+
 })();
