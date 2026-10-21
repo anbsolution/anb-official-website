@@ -34,3 +34,11 @@ This patch does not include a new APK or claim a release is available. GitHub Pa
 - Project search and the project directory live on `projects.html`.
 - Project detail pages link back to the dedicated Projects page and the Home page.
 - Navigation uses page URLs instead of scrolling to sections on the home page.
+
+
+## v14 — Facebook link integration
+- Added the supplied Facebook share link to the site footer links.
+- Added a direct **Visit Facebook** button on the Contact page.
+- Added a website update entry documenting this change.
+- External links open in a new tab with `rel="noopener noreferrer"`.
+- This is a patch only; the live website changes after the files are pushed and GitHub Pages deployment is verified.
