@@ -86,7 +86,7 @@
     setText('detail-development', 'This project identifier is not recognized by the current website.');
     setText('detail-category', '—'); setText('detail-platform', '—'); setText('detail-fact-platform', '—'); setText('detail-status', 'NOT FOUND'); setText('detail-availability', 'Not available');
     document.getElementById('detail-features')?.replaceChildren();
-    const action = document.createElement('a'); action.className = 'button button-primary'; action.href = './#projects'; action.textContent = 'Back to projects';
+    const action = document.createElement('a'); action.className = 'button button-primary'; action.href = 'projects.html'; action.textContent = 'Back to projects';
     document.getElementById('detail-actions')?.appendChild(action);
   };
   if (!project) { homeFallback(); return; }
@@ -99,5 +99,5 @@
   project.features.forEach((feature) => { const li = document.createElement('li'); li.textContent = feature; list.appendChild(li); });
   const actions = document.getElementById('detail-actions');
   if (project.link) { const link = document.createElement('a'); link.className = 'button button-primary'; link.href = project.link; link.textContent = project.linkLabel || 'Open official link ↗'; if (project.link.startsWith('http')) { link.target = '_blank'; link.rel = 'noopener noreferrer'; } actions.appendChild(link); }
-  const back = document.createElement('a'); back.className = 'button button-ghost'; back.href = './#projects'; back.textContent = '← Back to all projects'; actions.appendChild(back);
+  const back = document.createElement('a'); back.className = 'button button-ghost'; back.href = 'projects.html'; back.textContent = '← Back to all projects'; actions.appendChild(back);
 })();

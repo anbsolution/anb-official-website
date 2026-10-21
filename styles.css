@@ -277,3 +277,15 @@ body{background:var(--bg);color:var(--text)}
   .detail-hero { padding:1.2rem; border-radius:22px; }
   .detail-facts div { grid-template-columns:1fr; gap:.25rem; }
 }
+
+/* v13 — dedicated navigation pages */
+.page-main { min-height: 60vh; }
+.page-intro { padding-top: clamp(3rem, 8vw, 6rem); padding-bottom: clamp(2rem, 5vw, 3.5rem); }
+.page-intro h1 { margin: .8rem 0 1rem; color: #173d91; font-size: clamp(2.3rem, 6vw, 4.5rem); line-height: 1.06; letter-spacing: -.045em; }
+.page-intro .hero-description { max-width: 780px; }
+.page-section { padding-top: 1.2rem; padding-bottom: 4rem; }
+.page-info-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.2rem; }
+.downloads-project-links { margin-top:1.2rem; }
+.downloads-project-links h2 { color:#173d91; }
+.nav a[aria-current="page"] { color:#173d91; font-weight:800; }
+@media (max-width:700px) { .page-info-grid { grid-template-columns:1fr; } }

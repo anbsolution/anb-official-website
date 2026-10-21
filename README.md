@@ -26,3 +26,11 @@ This patch does not include a new APK or claim a release is available. GitHub Pa
 - Added visible **Back to projects** and **Home** navigation on detail pages.
 - Search suggestions open the matching project detail page; search itself remains text-based.
 - Project status and planned features are labelled carefully so the site does not claim unreleased functionality is already available.
+
+
+## v13 — dedicated website pages
+- The home page now focuses on the ANB introduction and hero.
+- Projects, About, Downloads, Updates and Contact each have their own page.
+- Project search and the project directory live on `projects.html`.
+- Project detail pages link back to the dedicated Projects page and the Home page.
+- Navigation uses page URLs instead of scrolling to sections on the home page.
