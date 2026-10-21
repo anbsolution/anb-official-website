@@ -26,3 +26,13 @@ After pushing, verify the latest commit on GitHub and open:
 https://anbsolution.github.io/anb-official-website/
 
 A successful local patch or push does not itself prove that GitHub Pages deployment has completed.
+
+
+## v8 upgrade
+- Adds live project suggestions below the centered search bar.
+- Adds a clear-search button and Enter/Escape keyboard behavior.
+- Adds useful search synonyms for the five existing projects.
+- Keeps the v7 royal neon blue and gold theme and removes no existing project cards.
+- No category filter controls are introduced.
+
+Apply on mobile: extract this ZIP over the existing repository files, inspect `git diff --check`, then commit and push to `main`. Verify the live site after GitHub Pages finishes deploying.

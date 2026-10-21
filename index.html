@@ -49,8 +49,10 @@
       <div class="header-search-wrap">
         <label class="visually-hidden" for="project-search">Search ANB projects</label>
         <span class="header-search-icon" aria-hidden="true">⌕</span>
-        <input id="project-search" class="header-search" type="search" placeholder="Search ANB projects…" autocomplete="off" aria-describedby="project-results">
+        <input id="project-search" class="header-search" type="search" placeholder="Search ANB projects…" autocomplete="off" aria-describedby="project-results" aria-controls="project-suggestions" aria-autocomplete="list">
+        <button id="search-clear" class="search-clear" type="button" aria-label="Clear project search" hidden>×</button>
         <kbd class="search-shortcut" aria-hidden="true">/</kbd>
+        <div id="project-suggestions" class="project-suggestions" role="listbox" aria-label="Project suggestions" hidden></div>
       </div>
       <p class="global-search-hint">Search games, AI tools, Android apps and more</p>
     </div>

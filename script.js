@@ -68,7 +68,43 @@
   const searchInput = document.getElementById('project-search');
   const projectCards = Array.from(document.querySelectorAll('.project-card'));
   const resultsLabel = document.getElementById('project-results');
+  const clearSearch = document.getElementById('search-clear');
+  const suggestions = document.getElementById('project-suggestions');
   const normalize = (value) => (value || '').toLocaleLowerCase().trim();
+  const aliases = new Map([
+    ['arrow puzzle ultra pro', 'puzzle game arrows web game'],
+    ['smart enhancer ultra 4k', 'image ai photo enhance upscale image editor'],
+    ['anb ai camera', 'camera android photo video ai'],
+    ['anb chat', 'chat messaging communication privacy'],
+    ['anb os', 'operating system android os system software']
+  ]);
+  const getCardTitle = (card) => card.querySelector('h3')?.textContent.trim() || 'ANB project';
+  const hideSuggestions = () => { if (suggestions) { suggestions.hidden = true; suggestions.replaceChildren(); } };
+  const renderSuggestions = () => {
+    if (!suggestions || !searchInput) return;
+    const query = normalize(searchInput.value);
+    if (!query) { hideSuggestions(); return; }
+    const matches = projectCards.filter((card) => {
+      const title = getCardTitle(card);
+      const alias = aliases.get(title.toLocaleLowerCase()) || '';
+      return normalize(`${title} ${card.textContent} ${alias}`).includes(query) || query.split(/\s+/).every((part) => normalize(`${title} ${card.textContent} ${alias}`).includes(part));
+    }).slice(0, 5);
+    suggestions.replaceChildren();
+    matches.forEach((card) => {
+      const option = document.createElement('button');
+      option.type = 'button'; option.className = 'project-suggestion'; option.setAttribute('role', 'option');
+      const title = document.createElement('span'); title.className = 'suggestion-title'; title.textContent = getCardTitle(card);
+      const category = document.createElement('small'); category.textContent = card.querySelector('.project-type')?.textContent.trim() || 'PROJECT';
+      option.append(title, category);
+      option.addEventListener('click', () => {
+        searchInput.value = getCardTitle(card); applyProjectSearch(); hideSuggestions();
+        document.getElementById('projects')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+        searchInput.focus();
+      });
+      suggestions.appendChild(option);
+    });
+    suggestions.hidden = matches.length === 0;
+  };
   const applyProjectSearch = () => {
     const query = normalize(searchInput ? searchInput.value : '');
     let shown = 0;
@@ -83,17 +119,22 @@
         ? (shown ? `${shown} project${shown === 1 ? '' : 's'} found for “${searchInput.value.trim()}”.` : `No projects found for “${searchInput.value.trim()}”.`)
         : '';
     }
+    if (clearSearch) clearSearch.hidden = !query;
   };
   if (projectGrid && projectCards.length) {
-    if (searchInput) searchInput.addEventListener('input', applyProjectSearch);
+    if (searchInput) searchInput.addEventListener('input', () => { applyProjectSearch(); renderSuggestions(); });
+    if (clearSearch) clearSearch.addEventListener('click', () => { searchInput.value = ''; applyProjectSearch(); hideSuggestions(); searchInput.focus(); });
+    if (searchInput) searchInput.addEventListener('focus', renderSuggestions);
+    document.addEventListener('click', (event) => { if (suggestions && !suggestions.contains(event.target) && event.target !== searchInput) hideSuggestions(); });
     if (searchInput) searchInput.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
-        searchInput.value = '';
-        applyProjectSearch();
-        searchInput.blur();
+        if (suggestions && !suggestions.hidden) { hideSuggestions(); event.preventDefault(); return; }
+        searchInput.value = ''; applyProjectSearch(); hideSuggestions(); searchInput.blur();
       }
       if (event.key === 'Enter' && searchInput.value.trim()) {
-        document.getElementById('projects')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+        const first = suggestions?.querySelector('.project-suggestion');
+        if (first && !suggestions.hidden) { event.preventDefault(); first.click(); }
+        else document.getElementById('projects')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
       }
     });
     document.addEventListener('keydown', (event) => {
