@@ -1,28 +1,30 @@
-# ANB Official Website — v4 Professional Studio patch
+# ANB Official Website — v5 Search Patch
 
-## What's improved
-- Adds instant project search across project titles and descriptions.
-- Adds category filters for Games, AI & images, Android, Communication, and System software.
-- Adds accessible project detail dialogs populated from the existing project cards.
-- Keeps the Cyber Pro design, existing navigation, logo, SEO metadata, and verified project URLs.
-- Keeps download links honest: no unverified APKs are added.
-- Does not change repository name or require a build system.
+This patch updates the existing GitHub Pages website in place. It does not create a new repository.
 
-## Update from Android using Termux
-1. Download `ANB-Official-Website-v4-Patch.zip` to Android Downloads.
-2. Check for unrelated local changes first.
+## v5 changes
+- Removes all category filter chips, as requested.
+- Moves the project search field into the center of the top navigation/header.
+- Search filters project cards by matching text only; an empty search shows all projects.
+- Shows a result count/message only after the visitor starts searching.
+- Adds `/` keyboard shortcut to focus search and `Escape` to clear it.
+- Preserves the existing Cyber Pro visual design, project detail dialogs, navigation, SEO, and existing links.
 
-```sh
-cd ~/ANB-Official-Website
-git status
-unzip -o /storage/emulated/0/Download/ANB-Official-Website-v4-Patch.zip -d .
-git diff --check
-git add index.html styles.css script.js README.md assets/anb-mark.svg
-git commit -m "Add project search filters and detail dialogs"
-git push origin main
-```
+The search is a local project-catalogue search, not a web-wide internet search engine.
 
-If `git status` shows unrelated changes, stop and inspect before committing. If Git says `nothing to commit`, do not repeat the commit. No nano or local APK build is needed.
+## Mobile GitHub Pages update
+1. Download `ANB-Official-Website-v5-Patch.zip` to Android Downloads.
+2. In Termux:
+   ```sh
+   cd ~/ANB-Official-Website
+   git status
+   unzip -o /storage/emulated/0/Download/ANB-Official-Website-v5-Patch.zip -d .
+   git diff --check
+   git add index.html styles.css script.js README.md assets/anb-mark.svg
+   git commit -m "Move project search to header and remove filters"
+   git push origin main
+   ```
+3. If `git status` shows unrelated uncommitted changes before extraction, stop and review them first.
+4. After push, test the centered search on desktop and mobile and confirm that entering `AI` narrows the cards and clearing the query restores all projects.
 
-## Verify after push
-Open https://anbsolution.github.io/anb-official-website/ and test project search, each category filter, the Project details button and dialog close button, mobile navigation, and Back to Top. GitHub Pages can take a few minutes to publish. This patch has not been pushed automatically.
+GitHub push and live deployment are not confirmed by creating this patch alone.

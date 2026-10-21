@@ -63,42 +63,44 @@
     items.forEach((item) => item.classList.add('is-visible'));
   }
 
-  // v4 project search and category filters.
+  // v5: centered header search filters project cards by text only (no category filters).
   const projectGrid = document.querySelector('.project-grid');
   const searchInput = document.getElementById('project-search');
-  const filterButtons = Array.from(document.querySelectorAll('[data-filter]'));
   const projectCards = Array.from(document.querySelectorAll('.project-card'));
   const resultsLabel = document.getElementById('project-results');
-  let activeFilter = 'all';
   const normalize = (value) => (value || '').toLocaleLowerCase().trim();
-  const applyProjectFilters = () => {
+  const applyProjectSearch = () => {
     const query = normalize(searchInput ? searchInput.value : '');
     let shown = 0;
     projectCards.forEach((card) => {
-      const matchesCategory = activeFilter === 'all' || card.dataset.category === activeFilter;
-      const matchesQuery = !query || normalize(card.textContent).includes(query);
-      const visible = matchesCategory && matchesQuery;
+      const visible = !query || normalize(card.textContent).includes(query);
       card.hidden = !visible;
       if (visible) shown += 1;
     });
     if (resultsLabel) {
-      resultsLabel.textContent = shown === projectCards.length && !query && activeFilter === 'all'
-        ? `Showing all ${shown} projects.`
-        : `Showing ${shown} of ${projectCards.length} projects.`;
+      resultsLabel.hidden = !query;
+      resultsLabel.textContent = query
+        ? (shown ? `${shown} project${shown === 1 ? '' : 's'} found for “${searchInput.value.trim()}”.` : `No projects found for “${searchInput.value.trim()}”.`)
+        : '';
     }
   };
   if (projectGrid && projectCards.length) {
-    if (searchInput) searchInput.addEventListener('input', applyProjectFilters);
-    filterButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        activeFilter = button.dataset.filter || 'all';
-        filterButtons.forEach((item) => {
-          const selected = item === button;
-          item.classList.toggle('is-active', selected);
-          item.setAttribute('aria-pressed', String(selected));
-        });
-        applyProjectFilters();
-      });
+    if (searchInput) searchInput.addEventListener('input', applyProjectSearch);
+    if (searchInput) searchInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        searchInput.value = '';
+        applyProjectSearch();
+        searchInput.blur();
+      }
+      if (event.key === 'Enter' && searchInput.value.trim()) {
+        document.getElementById('projects')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      }
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName || '')) {
+        event.preventDefault();
+        searchInput?.focus();
+      }
     });
 
     // Accessible project detail dialog, populated from each existing project card.
@@ -148,7 +150,7 @@
         else window.alert(`${title ? title.textContent : 'Project'}\n\n${description ? description.textContent : ''}`);
       });
     });
-    applyProjectFilters();
+    applyProjectSearch();
   }
 
 })();
