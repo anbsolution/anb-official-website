@@ -37,17 +37,24 @@
   <div class="ambient ambient-two" aria-hidden="true"></div>
   <header class="site-header">
     <a class="brand" href="#home" aria-label="ANB home"><img src="assets/anb-mark.svg" alt=""><span>ANB<span class="brand-dot">.</span></span></a>
-    <div class="header-search-wrap">
-      <label class="visually-hidden" for="project-search">Search ANB projects</label>
-      <span class="header-search-icon" aria-hidden="true">⌕</span>
-      <input id="project-search" class="header-search" type="search" placeholder="Search projects…" autocomplete="off" aria-describedby="project-results">
-      <kbd class="search-shortcut" aria-hidden="true">/</kbd>
-    </div>
     <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-controls="primary-navigation" aria-expanded="false">☰</button>
     <nav class="nav" id="primary-navigation" aria-label="Main navigation">
       <a href="#projects">Projects</a><a href="#about">About</a><a href="#downloads">Downloads</a><a href="#blog">Updates</a><a class="nav-cta" href="#contact">Contact <span>↗</span></a>
     </nav>
   </header>
+
+  <section class="global-search-section" aria-label="Search ANB projects">
+    <div class="global-search-inner">
+      <p class="global-search-kicker">FIND YOUR NEXT PROJECT</p>
+      <div class="header-search-wrap">
+        <label class="visually-hidden" for="project-search">Search ANB projects</label>
+        <span class="header-search-icon" aria-hidden="true">⌕</span>
+        <input id="project-search" class="header-search" type="search" placeholder="Search ANB projects…" autocomplete="off" aria-describedby="project-results">
+        <kbd class="search-shortcut" aria-hidden="true">/</kbd>
+      </div>
+      <p class="global-search-hint">Search games, AI tools, Android apps and more</p>
+    </div>
+  </section>
 
   <main id="main-content">
     <section class="hero section-wrap" id="home">

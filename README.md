@@ -28,3 +28,10 @@ The search is a local project-catalogue search, not a web-wide internet search e
 4. After push, test the centered search on desktop and mobile and confirm that entering `AI` narrows the cards and clearing the query restores all projects.
 
 GitHub push and live deployment are not confirmed by creating this patch alone.
+
+
+## v6 search layout fix
+- Moved project search out of the navigation row into a centered standalone section directly below the header.
+- Increased the search field size and improved contrast, focus state, and mobile spacing.
+- Kept text-only project search; category filter buttons are not included.
+- Existing project cards, links, dialogs, and site sections are preserved.
