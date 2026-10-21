@@ -1,37 +1,28 @@
-# ANB Official Website — v5 Search Patch
+# ANB Official Website — v7 Royal Neon Blue + Gold Theme
 
-This patch updates the existing GitHub Pages website in place. It does not create a new repository.
+This is a **patch** for the existing `anbsolution/anb-official-website` repository.
+It preserves the existing page structure, project search behavior, navigation, and sections.
+The main change is the premium Royal Neon Blue + Gold visual palette.
 
-## v5 changes
-- Removes all category filter chips, as requested.
-- Moves the project search field into the center of the top navigation/header.
-- Search filters project cards by matching text only; an empty search shows all projects.
-- Shows a result count/message only after the visitor starts searching.
-- Adds `/` keyboard shortcut to focus search and `Escape` to clear it.
-- Preserves the existing Cyber Pro visual design, project detail dialogs, navigation, SEO, and existing links.
+## Apply from Android Termux
+From the existing repository directory:
+```bash
+cd ~/ANB-Official-Website
+git status
+unzip -o /storage/emulated/0/Download/ANB-Official-Website-v7-Patch.zip -d .
+git diff --check
+git diff --stat
+```
+Review the changes before committing. If `git status` showed unrelated edits before applying the patch, stop and review those first.
 
-The search is a local project-catalogue search, not a web-wide internet search engine.
+Then:
+```bash
+git add styles.css index.html script.js README.md assets/anb-mark.svg
+git commit -m "Apply royal neon blue and gold theme"
+git push origin main
+```
 
-## Mobile GitHub Pages update
-1. Download `ANB-Official-Website-v5-Patch.zip` to Android Downloads.
-2. In Termux:
-   ```sh
-   cd ~/ANB-Official-Website
-   git status
-   unzip -o /storage/emulated/0/Download/ANB-Official-Website-v5-Patch.zip -d .
-   git diff --check
-   git add index.html styles.css script.js README.md assets/anb-mark.svg
-   git commit -m "Move project search to header and remove filters"
-   git push origin main
-   ```
-3. If `git status` shows unrelated uncommitted changes before extraction, stop and review them first.
-4. After push, test the centered search on desktop and mobile and confirm that entering `AI` narrows the cards and clearing the query restores all projects.
+After pushing, verify the latest commit on GitHub and open:
+https://anbsolution.github.io/anb-official-website/
 
-GitHub push and live deployment are not confirmed by creating this patch alone.
-
-
-## v6 search layout fix
-- Moved project search out of the navigation row into a centered standalone section directly below the header.
-- Increased the search field size and improved contrast, focus state, and mobile spacing.
-- Kept text-only project search; category filter buttons are not included.
-- Existing project cards, links, dialogs, and site sections are preserved.
+A successful local patch or push does not itself prove that GitHub Pages deployment has completed.
