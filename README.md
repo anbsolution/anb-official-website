@@ -1,38 +1,27 @@
-# ANB Official Website — v7 Royal Neon Blue + Gold Theme
+# ANB Official Website — v9 Patch
 
-This is a **patch** for the existing `anbsolution/anb-official-website` repository.
-It preserves the existing page structure, project search behavior, navigation, and sections.
-The main change is the premium Royal Neon Blue + Gold visual palette.
+## What's improved
+- Adds Arrow Up / Arrow Down keyboard navigation for project search suggestions.
+- Escape closes suggestions and returns focus to the search field.
+- Improves touch target sizes for search, menu, and primary buttons on mobile.
+- Adds stronger focus styling and a high-contrast preference enhancement.
+- Preserves the Royal Neon Blue + Golden theme, project content, and centered search.
 
-## Apply from Android Termux
-From the existing repository directory:
-```bash
-cd ~/ANB-Official-Website
-git status
-unzip -o /storage/emulated/0/Download/ANB-Official-Website-v7-Patch.zip -d .
-git diff --check
-git diff --stat
-```
-Review the changes before committing. If `git status` showed unrelated edits before applying the patch, stop and review those first.
+## Apply on Android / Termux
+1. Download this ZIP into your phone's Download folder.
+2. In Termux run `cd ~/ANB-Official-Website`.
+3. Run `git status` first. Do not overwrite work you need to keep.
+4. Extract with `unzip -o /storage/emulated/0/Download/ANB-Official-Website-v9-Patch.zip -d .`
+5. Run `git diff --check` and `node --check script.js`.
+6. If checks pass, run `git add index.html styles.css script.js README.md assets/anb-mark.svg`, then `git commit -m "Improve accessible search keyboard navigation"`, then `git push origin main`.
 
-Then:
-```bash
-git add styles.css index.html script.js README.md assets/anb-mark.svg
-git commit -m "Apply royal neon blue and gold theme"
-git push origin main
-```
-
-After pushing, verify the latest commit on GitHub and open:
-https://anbsolution.github.io/anb-official-website/
-
-A successful local patch or push does not itself prove that GitHub Pages deployment has completed.
+Git push and live deployment must be verified separately after publishing.
 
 
-## v8 upgrade
-- Adds live project suggestions below the centered search bar.
-- Adds a clear-search button and Enter/Escape keyboard behavior.
-- Adds useful search synonyms for the five existing projects.
-- Keeps the v7 royal neon blue and gold theme and removes no existing project cards.
-- No category filter controls are introduced.
+## v10 — Search UX polish
+- Shows a dynamic project count when the search is empty or populated.
+- Adds a branded no-results state with one-tap example searches and a clear-search action.
+- Makes search matching consistent with the project aliases used by suggestions.
+- Preserves the Royal Neon Blue + Gold theme, existing project links, and the no-category-filter layout.
 
-Apply on mobile: extract this ZIP over the existing repository files, inspect `git diff --check`, then commit and push to `main`. Verify the live site after GitHub Pages finishes deploying.
+Apply this patch over the existing repository root; check `git diff --check` and `node --check script.js` before pushing.

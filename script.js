@@ -68,6 +68,8 @@
   const searchInput = document.getElementById('project-search');
   const projectCards = Array.from(document.querySelectorAll('.project-card'));
   const resultsLabel = document.getElementById('project-results');
+  const emptyState = document.getElementById('search-empty-state');
+  const emptyClear = document.getElementById('empty-clear-search');
   const clearSearch = document.getElementById('search-clear');
   const suggestions = document.getElementById('project-suggestions');
   const normalize = (value) => (value || '').toLocaleLowerCase().trim();
@@ -96,6 +98,22 @@
       const title = document.createElement('span'); title.className = 'suggestion-title'; title.textContent = getCardTitle(card);
       const category = document.createElement('small'); category.textContent = card.querySelector('.project-type')?.textContent.trim() || 'PROJECT';
       option.append(title, category);
+      option.addEventListener('keydown', (event) => {
+        const options = Array.from(suggestions.querySelectorAll('.project-suggestion'));
+        const currentIndex = options.indexOf(option);
+        if (event.key === 'ArrowDown') {
+          event.preventDefault();
+          options[(currentIndex + 1) % options.length]?.focus();
+        } else if (event.key === 'ArrowUp') {
+          event.preventDefault();
+          if (currentIndex === 0) searchInput.focus();
+          else options[currentIndex - 1]?.focus();
+        } else if (event.key === 'Escape') {
+          event.preventDefault();
+          hideSuggestions();
+          searchInput.focus();
+        }
+      });
       option.addEventListener('click', () => {
         searchInput.value = getCardTitle(card); applyProjectSearch(); hideSuggestions();
         document.getElementById('projects')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
@@ -109,24 +127,35 @@
     const query = normalize(searchInput ? searchInput.value : '');
     let shown = 0;
     projectCards.forEach((card) => {
-      const visible = !query || normalize(card.textContent).includes(query);
+      const title = getCardTitle(card);
+      const alias = aliases.get(title.toLocaleLowerCase()) || '';
+      const searchableText = normalize(`${title} ${card.textContent} ${alias}`);
+      const visible = !query || query.split(/\s+/).every((part) => searchableText.includes(part));
       card.hidden = !visible;
       if (visible) shown += 1;
     });
     if (resultsLabel) {
-      resultsLabel.hidden = !query;
+      resultsLabel.hidden = false;
       resultsLabel.textContent = query
         ? (shown ? `${shown} project${shown === 1 ? '' : 's'} found for “${searchInput.value.trim()}”.` : `No projects found for “${searchInput.value.trim()}”.`)
-        : '';
+        : `Showing all ${shown} projects.`;
     }
+    if (emptyState) emptyState.hidden = !query || shown > 0;
     if (clearSearch) clearSearch.hidden = !query;
   };
   if (projectGrid && projectCards.length) {
     if (searchInput) searchInput.addEventListener('input', () => { applyProjectSearch(); renderSuggestions(); });
     if (clearSearch) clearSearch.addEventListener('click', () => { searchInput.value = ''; applyProjectSearch(); hideSuggestions(); searchInput.focus(); });
+    if (emptyClear) emptyClear.addEventListener('click', () => { searchInput.value = ''; applyProjectSearch(); hideSuggestions(); searchInput?.focus(); });
+    document.querySelectorAll('[data-search-example]').forEach((button) => button.addEventListener('click', () => { if (!searchInput) return; searchInput.value = button.getAttribute('data-search-example') || ''; applyProjectSearch(); renderSuggestions(); searchInput.focus(); }));
     if (searchInput) searchInput.addEventListener('focus', renderSuggestions);
     document.addEventListener('click', (event) => { if (suggestions && !suggestions.contains(event.target) && event.target !== searchInput) hideSuggestions(); });
     if (searchInput) searchInput.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowDown' && suggestions && !suggestions.hidden) {
+        const first = suggestions.querySelector('.project-suggestion');
+        if (first) { event.preventDefault(); first.focus(); }
+        return;
+      }
       if (event.key === 'Escape') {
         if (suggestions && !suggestions.hidden) { hideSuggestions(); event.preventDefault(); return; }
         searchInput.value = ''; applyProjectSearch(); hideSuggestions(); searchInput.blur();
