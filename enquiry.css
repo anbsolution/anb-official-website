@@ -48,3 +48,77 @@
 .receipt-reference button{padding:8px 10px;min-height:36px;font-size:11px}
 @media(max-width:780px){.enquiry-layout{grid-template-columns:1fr;padding-bottom:70px}.enquiry-side{grid-template-columns:repeat(2,minmax(0,1fr))}.enquiry-admin-link{grid-column:1/-1}.enquiry-side-card:last-of-type{grid-column:1/-1}}
 @media(max-width:520px){.enquiry-intro{padding-top:54px}.enquiry-intro h1{letter-spacing:-2px}.enquiry-field-grid{grid-template-columns:1fr;gap:15px}.enquiry-side{grid-template-columns:1fr}.enquiry-side-card:last-of-type{grid-column:auto}.enquiry-form-panel{padding:19px}.receipt-reference{grid-template-columns:1fr}.receipt-reference button{width:100%}}
+
+
+/* ANB ENQUIRY LIGHT THEME OVERRIDE v19 */
+body:has(.enquiry-layout) {
+  background: #f5f8fd;
+  color: #203654;
+}
+.enquiry-intro h1 { color: #17366b; }
+.enquiry-intro .gradient-text {
+  background: linear-gradient(100deg,#2457b8,#6389c7,#a78b50);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.enquiry-intro .hero-description { color: #62728a; }
+.enquiry-trust-row span {
+  color: #52637c;
+  border-color: #dce4ef;
+  background: #fff;
+}
+.enquiry-form-panel,
+.enquiry-side-card {
+  background: #fff !important;
+  color: #203654;
+  border: 1px solid #dce4ef;
+  box-shadow: 0 12px 36px rgba(25,48,85,.08);
+}
+.enquiry-panel-heading h2,
+.enquiry-side-card h3,
+.enquiry-receipt h2 { color: #203654; }
+.enquiry-panel-heading > p,
+.enquiry-side-card p,
+.enquiry-privacy-note { color: #66758b; }
+.enquiry-field label { color: #263b59; }
+.enquiry-field input,
+.enquiry-field select,
+.enquiry-field textarea {
+  background: #f9fbfe;
+  color: #1b2b43;
+  border-color: #d5dfed;
+}
+.enquiry-field input::placeholder,
+.enquiry-field textarea::placeholder { color: #8997aa; }
+.enquiry-field input:focus,
+.enquiry-field select:focus,
+.enquiry-field textarea:focus {
+  border-color: #6b8fce;
+  box-shadow: 0 0 0 3px rgba(70,112,184,.12);
+}
+.enquiry-consent { color: #5e6d83; }
+.enquiry-consent input { accent-color: #315fb3; }
+.enquiry-admin-link {
+  background: #fff;
+  color: #62718a;
+  border-color: #dce4ef;
+}
+.enquiry-admin-link a,
+.enquiry-side-links .text-link { color: #315da8; }
+.enquiry-status.is-error {
+  background: #fff1f1; border-color: #f0caca; color: #9b2f3b;
+}
+.enquiry-status.is-info {
+  background: #eef5ff; border-color: #cbdcf5; color: #2b4e82;
+}
+.enquiry-status.is-success {
+  background: #edf9f1; border-color: #c5e7d0; color: #24663e;
+}
+.enquiry-receipt {
+  background: #f7faff;
+  border-color: #d3e3f6;
+}
+.receipt-check { background: #dff5e8; color: #26764b; }
+.receipt-reference { background: #fff; border-color: #dce4ef; }
+.receipt-reference strong { color: #715522; }
