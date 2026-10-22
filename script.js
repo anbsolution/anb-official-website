@@ -212,4 +212,36 @@
     applyProjectSearch();
   }
 
+
+  // v15: manual Facebook sharing helpers for update cards.
+  document.querySelectorAll('.copy-update').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const card = button.closest('[data-share-text]');
+      const text = card?.getAttribute('data-share-text');
+      if (!text) return;
+      const original = button.textContent;
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const field = document.createElement('textarea');
+          field.value = text;
+          field.setAttribute('readonly', '');
+          field.style.position = 'fixed';
+          field.style.opacity = '0';
+          document.body.appendChild(field);
+          field.select();
+          const copied = document.execCommand('copy');
+          field.remove();
+          if (!copied) throw new Error('Copy not available');
+        }
+        button.textContent = 'Copied ✓';
+      } catch {
+        window.prompt('Copy this update text:', text);
+        button.textContent = 'Text shown';
+      }
+      window.setTimeout(() => { button.textContent = original; }, 2200);
+    });
+  });
+
 })();

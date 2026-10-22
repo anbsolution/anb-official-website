@@ -289,3 +289,6 @@ body{background:var(--bg);color:var(--text)}
 .downloads-project-links h2 { color:#173d91; }
 .nav a[aria-current="page"] { color:#173d91; font-weight:800; }
 @media (max-width:700px) { .page-info-grid { grid-template-columns:1fr; } }
+
+/* v15: manual social sharing controls */
+.share-panel{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px;margin-bottom:22px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(110deg,#eef4ff,#fff9e8)}.share-panel h2{margin:0 0 7px;font-size:clamp(20px,3vw,28px);color:#17305F}.share-panel p{max-width:680px;margin:0;color:#52627c;font-size:13px}.share-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:auto;padding-top:18px}.share-actions .button{min-height:40px;padding:9px 12px;font-size:11px;cursor:pointer}.blog-card .share-actions+.blog-footer{margin-top:14px}@media(max-width:700px){.share-panel{align-items:flex-start;flex-direction:column}.share-panel>.button{width:100%}.share-actions{width:100%}.share-actions .button{flex:1}}

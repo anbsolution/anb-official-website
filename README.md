@@ -42,3 +42,10 @@ This patch does not include a new APK or claim a release is available. GitHub Pa
 - Added a website update entry documenting this change.
 - External links open in a new tab with `rel="noopener noreferrer"`.
 - This is a patch only; the live website changes after the files are pushed and GitHub Pages deployment is verified.
+
+## v15 — manual Facebook sharing
+- Added a **Share Updates Page on Facebook** link and a Facebook share action on each update card.
+- Added **Copy text** buttons so the user can paste a prepared update caption into Facebook before publishing.
+- Sharing opens Facebook's share dialog; the user reviews and manually publishes the post. It does not post automatically.
+- No Facebook API token, GitHub secret, or Meta developer app is required for this manual workflow.
+- The share dialog is operated by Facebook, so the final available options depend on the logged-in Facebook account and app/browser behavior.
