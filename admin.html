@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#080d19">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#f5f8fd">
 <title>ANB Private Enquiry Inbox</title><link rel="stylesheet" href="enquiry.css">
 <style>
-:root{color-scheme:dark}body{background:#080d19;color:#f4f7ff}.admin-wrap{width:min(1100px,100%);margin:auto;padding:24px 16px 60px}.admin-card,.enquiry-record{background:#111a2b;border:1px solid #263650;border-radius:16px;padding:18px;margin:14px 0}.admin-wrap input,.admin-wrap select{width:100%;padding:12px;border:1px solid #344763;border-radius:10px;background:#0b1322;color:#f4f7ff}.admin-wrap button{cursor:pointer}.admin-row{display:flex;gap:10px;flex-wrap:wrap}.admin-row>*{flex:1;min-width:140px}.admin-message{white-space:pre-wrap;overflow-wrap:anywhere}.admin-meta,.admin-small{color:#a5b4ca;font-size:14px}.admin-status{min-height:24px;color:#67e8bd}.admin-status.error{color:#fca5a5}.admin-record-top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}@media(max-width:560px){.admin-card,.enquiry-record{padding:14px}}
+:root{color-scheme:light}body{background:#f5f8fd;color:#203654}.admin-wrap{width:min(1100px,100%);margin:auto;padding:24px 16px 60px}.admin-card,.enquiry-record{background:#fff;border:1px solid #dce4ef;border-radius:16px;padding:18px;margin:14px 0;box-shadow:0 10px 28px rgba(25,48,85,.06)}.admin-wrap input,.admin-wrap select{width:100%;padding:12px;border:1px solid #d5dfed;border-radius:10px;background:#f9fbfe;color:#1b2b43}.admin-wrap button{cursor:pointer}.admin-row{display:flex;gap:10px;flex-wrap:wrap}.admin-row>*{flex:1;min-width:140px}.admin-message{white-space:pre-wrap;overflow-wrap:anywhere}.admin-meta,.admin-small{color:#63738a;font-size:14px}.admin-status{min-height:24px;color:#26764b}.admin-status.error{color:#b42332}.admin-record-top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}@media(max-width:560px){.admin-card,.enquiry-record{padding:14px}}
 </style>
 <script defer src="enquiry-config.js"></script><script defer src="admin.js"></script>
 </head>
 <body><main class="admin-wrap">
 <div class="eyebrow">ANB · PRIVATE CONSOLE</div><h1>Enquiry inbox</h1>
-<p class="admin-small">Authorized admin access only. The token stays in page memory and is not saved to local storage.</p>
+<p class="admin-small">Authorized admin access only. Your password stays in page memory only and is not saved to local storage.</p>
 <section id="admin-login" class="admin-card"><h2>Admin sign in</h2>
-<label class="enquiry-field">Admin access token<input id="admin-token" type="password" autocomplete="current-password" minlength="32" required placeholder="Paste ANB_ADMIN_TOKEN configured in Supabase"></label>
-<button id="admin-signin" class="button button-primary" type="button">Verify token</button>
+<label class="enquiry-field">Admin password<input id="admin-password" type="password" autocomplete="current-password" required placeholder="Enter your admin password"></label>
+<button id="admin-signin" class="button button-primary" type="button">Sign in with password</button>
 <p id="admin-login-status" class="admin-status" role="status" aria-live="polite"></p></section>
 <section id="admin-dashboard" class="admin-card" hidden>
 <div class="admin-row"><div><span class="admin-small">TOTAL</span><h2 id="stat-total">0</h2></div><div><span class="admin-small">NEW</span><h2 id="stat-new">0</h2></div><div><span class="admin-small">RESOLVED</span><h2 id="stat-resolved">0</h2></div></div>

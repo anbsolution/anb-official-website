@@ -4,7 +4,7 @@
   const cfg = window.ANB_ENQUIRY_CONFIG || {};
   const base = String(cfg.API_BASE_URL || "").replace(/\/+$/, "");
   const publicKey = String(cfg.PUBLISHABLE_KEY || "");
-  let token = "", rows = [];
+  let password = "", rows = [];
   function setMessage(id, text, error = false) {
     const el = $(id); if (!el) return;
     el.textContent = text; el.className = error ? "admin-status error" : "admin-status";
@@ -13,7 +13,7 @@
     const response = await fetch(`${base}${path}`, {
       ...options,
       headers: { "Content-Type": "application/json", "apikey": publicKey,
-        ...(token ? { "X-ANB-Admin-Token": token } : {}), ...(options.headers || {}) }
+        ...(password ? { "X-ANB-Admin-Password": password } : {}), ...(options.headers || {}) }
     });
     const data = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(data.error || `Request failed (${response.status})`);
@@ -54,16 +54,16 @@
   }
   async function loadRows() { const d=await api("/admin/enquiries"); rows=Array.isArray(d.enquiries)?d.enquiries:[]; render(); }
   async function signIn() {
-    const candidate=$("admin-token").value.trim();
-    if(candidate.length<32){setMessage("admin-login-status","Enter the long admin token configured in Supabase Function Secrets.",true);return;}
-    token=candidate; $("admin-signin").disabled=true; setMessage("admin-login-status","Checking token…");
-    try { await loadRows(); $("admin-login").hidden=true; $("admin-dashboard").hidden=false; $("admin-token").value=""; setMessage("admin-status","Signed in. Inbox loaded."); }
-    catch(e){token="";setMessage("admin-login-status",e.message || "Sign-in failed.",true);}
+    const candidate=$("admin-password").value;
+    if(!candidate){setMessage("admin-login-status","Enter your admin password.",true);return;}
+    password=candidate; $("admin-signin").disabled=true; setMessage("admin-login-status","Checking password…");
+    try { await loadRows(); $("admin-login").hidden=true; $("admin-dashboard").hidden=false; $("admin-password").value=""; setMessage("admin-status","Signed in. Inbox loaded."); }
+    catch(e){password="";setMessage("admin-login-status",e.message || "Sign-in failed.",true);}
     finally{$("admin-signin").disabled=false;}
   }
-  function logout(){token="";rows=[];$("admin-dashboard").hidden=true;$("admin-login").hidden=false;$("admin-token").value="";$("admin-list").replaceChildren();setMessage("admin-login-status","Signed out.");}
+  function logout(){password="";rows=[];$("admin-dashboard").hidden=true;$("admin-login").hidden=false;$("admin-password").value="";$("admin-list").replaceChildren();setMessage("admin-login-status","Signed out.");}
   $("admin-signin").addEventListener("click",signIn);
-  $("admin-token").addEventListener("keydown",e=>{if(e.key==="Enter")signIn();});
+  $("admin-password").addEventListener("keydown",e=>{if(e.key==="Enter")signIn();});
   $("admin-refresh").addEventListener("click",async()=>{try{await loadRows();setMessage("admin-status","Inbox refreshed.");}catch(e){setMessage("admin-status",e.message||"Refresh failed.",true);}});
   $("admin-logout").addEventListener("click",logout);
   $("admin-search").addEventListener("input",render);
