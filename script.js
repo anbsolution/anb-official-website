@@ -78,7 +78,8 @@
     ['smart enhancer ultra 4k', 'image ai photo enhance upscale image editor'],
     ['anb ai camera', 'camera android photo video ai'],
     ['anb chat', 'chat messaging communication privacy'],
-    ['anb os', 'operating system android os system software']
+    ['anb os', 'operating system android os system software'],
+    ['anb ai', 'personal assistant hindi hinglish voice cloud local ai android']
   ]);
   const getCardTitle = (card) => card.querySelector('h3')?.textContent.trim() || 'ANB project';
   const hideSuggestions = () => { if (suggestions) { suggestions.hidden = true; suggestions.replaceChildren(); } };

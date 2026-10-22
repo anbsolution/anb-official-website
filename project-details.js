@@ -56,6 +56,20 @@
       development: 'This project remains an experiment. There is no public install link on the website yet; do not treat planned security features as production-ready until verified.',
       link: '', linkLabel: ''
     },
+    'anb-ai': {
+      title: 'ANB AI',
+      type: 'PERSONAL AI / ANDROID',
+      category: 'Personal AI assistant',
+      platform: 'Android · Cloud + on-device AI planned',
+      availability: 'In development',
+      status: 'IN DEVELOPMENT',
+      symbol: 'AI',
+      summary: 'A personal assistant concept for Hindi/Hinglish conversations, voice replies and hybrid cloud-plus-local AI.',
+      about: 'ANB AI is planned as a practical Android assistant with a mobile-first interface, voice input, spoken replies and a hybrid architecture. Cloud services may handle tasks that benefit from larger models, while suitable tasks may run locally when configured on-device. Actual features depend on implementation, device resources and secure service integration.',
+      features: ['Hindi and Hinglish text/voice interaction planned', 'Voice replies and conversational interface planned', 'Hybrid cloud and on-device AI architecture', 'Secure API integration with secrets kept out of client code', 'Mobile-first Android workflow and staged testing'],
+      development: 'The project is in development. Voice, offline/local inference and cloud features remain planned until verified in a published build. No public installer is listed here.',
+      link: 'https://github.com/anbsolution', linkLabel: 'Visit ANB GitHub'
+    },
     'anb-os': {
       title: 'ANB OS',
       type: 'SYSTEM SOFTWARE',
