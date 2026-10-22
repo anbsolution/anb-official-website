@@ -1,51 +1,33 @@
-# ANB Official Website v11 — White, Royal Blue & Gold Mixed Theme
+# ANB Official Website — v16 Pro Upgrade Patch
 
-Mobile-first theme update for the existing `anb-official-website` repository. Preserves the project search, project cards, dialogs, navigation, downloads information, SEO metadata, and existing links.
+## What's included
+- More polished studio homepage with capability cards and a clear build workflow.
+- Expanded About page explaining design, engineering, release-verification and improvement principles.
+- Improved project discovery cards that visibly link users to full project profiles.
+- Project detail page adds a release-status reminder and navigation to updates/downloads.
+- Updates page adds v16 release notes and preserves manual Facebook sharing and copy-text controls.
+- Responsive styles for mobile and desktop; reduced-motion preference respected.
+- Corrected the previous auto-posting wording: Facebook sharing is manual; no auto-publishing workflow is enabled by this patch.
 
-## Theme direction
-- Clean white and soft-blue content surfaces
-- Royal blue navigation/ticker/footer and project accents
-- Gold highlights for focus states, accents, and interactive details
-- Higher contrast text on light surfaces
-- Updated browser theme color
+## Apply on Android using Termux
+1. Download and extract this ZIP into the existing repository folder.
+2. Run `git diff --check`.
+3. Run `node --check script.js` and `node --check project-details.js`.
+4. Review `git status` and changes before committing.
+5. Commit and push to the existing `main` branch.
 
-## Apply on Android with Termux
-1. Download the ZIP into Android Downloads.
-2. `cd ~/ANB-Official-Website`
-3. Check `git status` and preserve any uncommitted changes.
-4. Extract this ZIP into the repository root.
-5. Run `git diff --check` and `node --check script.js`.
-6. Review `git diff`, then commit and push to `main`.
+Example commands:
+```bash
+cd ~/ANB-Official-Website
+git status
+unzip -o /storage/emulated/0/Download/ANB-Official-Website-v16-Pro-Upgrade-Patch.zip -d .
+git diff --check
+node --check script.js
+node --check project-details.js
+git add index.html projects.html project-details.html about.html updates.html styles.css README.md
+git commit -m "Upgrade ANB website design and project details v16"
+git push origin main
+```
 
-This patch does not include a new APK or claim a release is available. GitHub Pages deployment must be checked after pushing.
-
-
-## v12 — dedicated project detail pages
-- Selecting a project card opens `project-details.html?project=...` with a dedicated project profile.
-- Each profile includes overview, planned features, development status, platform/category details and official links where available.
-- Added visible **Back to projects** and **Home** navigation on detail pages.
-- Search suggestions open the matching project detail page; search itself remains text-based.
-- Project status and planned features are labelled carefully so the site does not claim unreleased functionality is already available.
-
-
-## v13 — dedicated website pages
-- The home page now focuses on the ANB introduction and hero.
-- Projects, About, Downloads, Updates and Contact each have their own page.
-- Project search and the project directory live on `projects.html`.
-- Project detail pages link back to the dedicated Projects page and the Home page.
-- Navigation uses page URLs instead of scrolling to sections on the home page.
-
-
-## v14 — Facebook link integration
-- Added the supplied Facebook share link to the site footer links.
-- Added a direct **Visit Facebook** button on the Contact page.
-- Added a website update entry documenting this change.
-- External links open in a new tab with `rel="noopener noreferrer"`.
-- This is a patch only; the live website changes after the files are pushed and GitHub Pages deployment is verified.
-
-## v15 — manual Facebook sharing
-- Added a **Share Updates Page on Facebook** link and a Facebook share action on each update card.
-- Added **Copy text** buttons so the user can paste a prepared update caption into Facebook before publishing.
-- Sharing opens Facebook's share dialog; the user reviews and manually publishes the post. It does not post automatically.
-- No Facebook API token, GitHub secret, or Meta developer app is required for this manual workflow.
-- The share dialog is operated by Facebook, so the final available options depend on the logged-in Facebook account and app/browser behavior.
+## Important
+This ZIP only prepares the files. It does not push to GitHub or deploy the live site. Verify the Pages deployment after pushing. Facebook posts must be reviewed and published manually using the share controls.
